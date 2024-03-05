@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  # Contenedor con Aplicación
+  quacker_app:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      - MONGO_IP=mongo_quacker
+      - MONGO_PORT=27017
+    depends_on:
+      - mongo_quacker
+    networks:
+      - quacker-mongo
+
+  # Contenedor con MongoDB
+  mongo_quacker:
+    image: mongo:4.4
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - quacker-mongo
+
+networks:
+  quacker-mongo:
+    driver: bridge
+
+volumes:
+  mongo_data:
