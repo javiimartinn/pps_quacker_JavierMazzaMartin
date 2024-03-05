@@ -25,6 +25,8 @@ Para iniciar un entorno aislado primero hay que crearlo con el comando "python3 
 que iniciarlo con el comando "source Entorno_Quacker/bin/activate", y luego hay que importar las dependencias 
 necesarias con el comando "pip install -r requirements*".
 
+Para el despliegue de un contenedor docker que contenga la aplicacion, primero hay que crear una imagen con el comando "docker build -t imagen_quacker .", que utiliza el fichero Dockerfile para crearla, después hay que crear un contenedor que contenga la imagen creada anteriormente, y otro contenedor que contenga mongo, pero primmero hay que crear una red interna de docker para que ambos contenedores puedan counicarse. Esto se logra con el comando "docker network create quacker-mongo", y una vez creada la red, hay que crear los contenedores anteriormente mencionados de forma que esten dentro de la red interna, con los comandos "docker run -d --network quacker-mongo -p 27017:27017 --name mongo_quacker mongo:4.4" y "docker run -d --network quacker-mongo -p 5000:5000 --name quacker_app imagen_quacker". Una vez creados, se puede acceder a la aplicacion desde el navegador, introduciendo la url "http://127.0.0.1:5000/".
+
 ### API REST
 No cuenta con funcionalidad CRUD completa. Se exponen los siguientes endpoints (acompaño explicación y ejemplos):
   - __\[POST\] /signup__ (registrar nuevo usuario). Espera un JSON con la siguiente estructura:
