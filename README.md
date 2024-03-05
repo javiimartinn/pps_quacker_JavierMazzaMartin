@@ -21,13 +21,42 @@ Desplegará un servidor web en [http://127.0.0.1:5000](http://127.0.0.1:5000)
 
 En el index se mostrará una tabla con los quacks de todos los usuarios, pero cuenta con una API que puedes utilizar para integrarla con tu propia aplicación o para desarrollar tu propio frontend.
 
-Para iniciar un entorno aislado primero hay que crearlo con el comando "python3 -m venv Entorno_Quacker", luego hay 
-que iniciarlo con el comando "source Entorno_Quacker/bin/activate", y luego hay que importar las dependencias 
-necesarias con el comando "pip install -r requirements*".
+Para iniciar un entorno aislado primero hay que crearlo con el comando:
 
-Para el despliegue de un contenedor docker que contenga la aplicacion, primero hay que crear una imagen con el comando "docker build -t imagen_quacker .", que utiliza el fichero Dockerfile para crearla, después hay que crear un contenedor que contenga la imagen creada anteriormente, y otro contenedor que contenga mongo, pero primmero hay que crear una red interna de docker para que ambos contenedores puedan counicarse. Esto se logra con el comando "docker network create quacker-mongo", y una vez creada la red, hay que crear los contenedores anteriormente mencionados de forma que esten dentro de la red interna, con los comandos "docker run -d --network quacker-mongo -p 27017:27017 --name mongo_quacker mongo:4.4" y "docker run -d --network quacker-mongo -p 5000:5000 --name quacker_app imagen_quacker". Una vez creados, se puede acceder a la aplicacion desde el navegador, introduciendo la url "http://127.0.0.1:5000/".
+    python3 -m venv Entorno_Quacker
 
-De todas formas, la parte del despliegue de los contenedores anteriormente explicada solo hay que hacerla si se quieren crear los contenedores de forma manual, pero si se prefiere también se pueden crear y lanzar los contenedores utilizando el fichero "docker-compose.yml", el cual se encarga de crear y lanzar los contenedores espeficicados en su interior, y para usarlo hay que ejecutar el comando "docker compose up -d", y para detener los contenedores hay que ejecutar el comando "docker compose down".
+Luego hay que iniciarlo con el comando:
+
+    source Entorno_Quacker/bin/activate
+
+Y luego hay que importar las dependencias 
+necesarias con el comando:
+
+    pip install -r requirements*
+
+Para el despliegue de un contenedor docker que contenga la aplicacion, primero hay que crear una imagen con el comando:
+
+    docker build -t imagen_quacker .
+
+ que utiliza el fichero Dockerfile para crearla, después hay que crear un contenedor que contenga la imagen creada anteriormente, y otro contenedor que contenga mongo, pero primmero hay que crear una red interna de docker para que ambos contenedores puedan counicarse. Esto se logra con el comando:
+
+    docker network create quacker-mongo
+
+y una vez creada la red, hay que crear los contenedores anteriormente mencionados de forma que esten dentro de la red interna, con los comandos:
+
+    docker run -d --network quacker-mongo -p 27017:27017 --name mongo_quacker mongo:4.4
+
+    docker run -d --network quacker-mongo -p 5000:5000 --name quacker_app imagen_quacker
+
+Una vez creados, se puede acceder a la aplicacion desde el navegador, introduciendo la url "http://127.0.0.1:5000/".
+
+De todas formas, la parte del despliegue de los contenedores anteriormente explicada solo hay que hacerla si se quieren crear los contenedores de forma manual, pero si se prefiere también se pueden crear y lanzar los contenedores utilizando el fichero "docker-compose.yml", el cual se encarga de crear y lanzar los contenedores espeficicados en su interior, y para usarlo hay que ejecutar el comando:
+
+    docker compose up -d
+
+y para detener los contenedores hay que ejecutar el comando:
+
+    docker compose down
 
 ### API REST
 No cuenta con funcionalidad CRUD completa. Se exponen los siguientes endpoints (acompaño explicación y ejemplos):
