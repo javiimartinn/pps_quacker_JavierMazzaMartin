@@ -7,7 +7,7 @@ Completa esta lista para llevar a Quacker al nivel que se merece
 ### TODO
 - [X] Aislar el entorno de ejecución de Python y exportar sus dependencias
 - [X] Crear imagen de Docker
-- [ ] Levantar con contenedor de Mongo
+- [X] Levantar con contenedor de Mongo
   - [ ] Versión inicial sin variables de entorno
   - [ ] Usando variables de entorno
 - [ ] Versión con Docker-Compose (¡usando volúmenes! Los Quacks son las píldoras de información más valiosas de Internet)
